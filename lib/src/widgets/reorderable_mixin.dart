@@ -16,8 +16,7 @@ mixin ReorderableMixin {
         axis: direction,
         child: FadeTransition(
           opacity: entranceController,
-          child: AnimatedContainer(
-              duration: Duration(milliseconds: 300), child: child),
+          child: child,
         ),
       );
     } else {
