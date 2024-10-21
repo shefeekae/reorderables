@@ -16,7 +16,8 @@ mixin ReorderableMixin {
         axis: direction,
         child: FadeTransition(
           opacity: entranceController,
-          child: child,
+          child: AnimatedContainer(
+              duration: Duration(milliseconds: 300), child: child),
         ),
       );
     } else {
@@ -26,25 +27,27 @@ mixin ReorderableMixin {
         child: FadeTransition(opacity: entranceController, child: child),
       );
 
-      BoxConstraints contentSizeConstraints = BoxConstraints.loose(draggingFeedbackSize);
-      return ConstrainedBox(constraints: contentSizeConstraints, child: transition);
+      BoxConstraints contentSizeConstraints =
+          BoxConstraints.loose(draggingFeedbackSize);
+      return ConstrainedBox(
+          constraints: contentSizeConstraints, child: transition);
     }
   }
 
   @protected
   Widget makeDisappearingWidget(
-      Widget child,
-      AnimationController ghostController,
-      Size? draggingFeedbackSize,
-      Axis direction,
-      ) {
+    Widget child,
+    AnimationController ghostController,
+    Size? draggingFeedbackSize,
+    Axis direction,
+  ) {
     if (null == draggingFeedbackSize) {
       return SizeTransitionWithIntrinsicSize(
         sizeFactor: ghostController,
         axis: direction,
         child: FadeTransition(
           opacity: ghostController,
-          child: child,
+          child: SizedBox(),
         ),
       );
     } else {
@@ -55,7 +58,7 @@ mixin ReorderableMixin {
       );
 
       BoxConstraints contentSizeConstraints =
-      BoxConstraints.loose(draggingFeedbackSize);
+          BoxConstraints.loose(draggingFeedbackSize);
       return ConstrainedBox(
           constraints: contentSizeConstraints, child: transition);
     }
